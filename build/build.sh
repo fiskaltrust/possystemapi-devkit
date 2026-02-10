@@ -68,15 +68,15 @@ done
 # copy to build directory
 header "Copying files to build directory..."
 echo "Copying howtos..."
-cp -r $ROOT_DIR/HOWTO* $BUILD_DIR
+cp -rv $ROOT_DIR/HOWTO* $BUILD_DIR
 echo "Copy lib..."
-cp -r $ROOT_DIR/libPosSystemAPI $BUILD_DIR
+cp -rv $ROOT_DIR/libPosSystemAPI $BUILD_DIR
 echo "Copy scripts..."
-cp -r $ROOT_DIR/mitmproxy.bat $BUILD_DIR/
+cp -rv $ROOT_DIR/mitmproxy.bat $BUILD_DIR/
 echo "Copy docs..."
-cp -r $ROOT_DIR/*.pdf $BUILD_DIR/
+cp -rv $ROOT_DIR/*.pdf $BUILD_DIR/
 echo "Copy POS System API and Compliance docs..."
-cp -r "$DIR"/artifacts/* "$BUILD_DIR"/
+cp -rv "$DIR"/artifacts/* "$BUILD_DIR"/
 
 # clear markdown files from build directory
 header "Removing markdown files from build directory..."

@@ -138,7 +138,7 @@ Then all requests from the HOWTOs will go to the mitmproxy where you can view th
 ## Useful followup links
 
 - The [POS System API docs](https://docs.fiskaltrust.cloud/apis/pos-system-api)
-  - [pay](https://docs.fiskaltrust.cloud/apis/pos-system-api#tag/SynchronAPI/paths/~1pay/post) requests
+  - [pay](https://docs.fiskaltrust.cloud/apis/pos-system-api#tag/pay) requests
 - The [InStore App docs](https://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/instore-app/introduction)
   - How to [install the InStore App](https://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/instore-app/installation-guides) on your device
   - How to [setup the InStore App](https://docs.fiskaltrust.cloud/docs/poscreators/middleware-doc/instore-app/setup-guide) to work with your fiskaltrust environment

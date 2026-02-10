@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "HOWTO_01_Payment_csharp",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_HOWTO_01_Payment_csharp",
+            "program": "${workspaceFolder}/HOWTO_01_Payment_csharp/bin/Debug/net9.0/HOWTO_01_Payment.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/HOWTO_01_Payment_csharp",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "HOWTO_02_fiskal_signing",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_HOWTO_02_fiskal_signing_csharp",
+            "program": "${workspaceFolder}/HOWTO_02_fiskal_signing_csharp/bin/Debug/net9.0/HOWTO_02_fiskal_signing.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/HOWTO_02_fiskal_signing_csharp",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "HOWTO_08_pay_sign_issue",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_HOWTO_08_pay_sign_issue_csharp",
+            "program": "${workspaceFolder}/HOWTO_08_pay_sign_issue_csharp/bin/Debug/net9.0/HOWTO_08_pay_sign_issue.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/HOWTO_08_pay_sign_issue_csharp",
+            "console": "externalTerminal",
+            "stopAtEntry": false
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+@startuml comp_deploy_restaurant_multi_device
+
+title Scenario - Restaurant - Component deployment with multiple devices
+
+component "POS Server" as POS
+component "POS System API" as api
+
+node "Device 1 (like Orderman10)" as device1 {
+    component "InStore App 1" as app1
+    component "POS App 1" as posapp1
+}
+note left of app1
+    terminalID=01
+end note
+node "Device 2 (like Google Pixel Phone)" as device2 {
+    component "InStore App 2" as app2
+    component "POS App 2" as posapp2
+}
+note right of app2
+    terminalID=02
+end note
+
+posapp1 --> POS
+posapp2 --> POS
+POS --> api
+api --> app1
+api --> app2
+
+@enduml
+
+@startuml comp_deploy_retail_customer_interface
+title Scenario - Retail - Customer Interface
+
+package "Sales desk" as desk {
+    node "POS Terminal" as terminal {
+        component "POS App" as posapp1
+    }
+    node "Customer\nInterface" as interface {
+        component "InStore App" as app1
+        note right of app1
+            + payment
+            + issue receipts
+        end note
+    }
+}
+node backend {
+    component "POS Server" as POS
+}
+cloud internet {
+    component "POS System API" as api
+}
+
+api --> app1
+POS --> api
+posapp1 --> POS
+
+@enduml
+
+@startuml payment_comm_flow
+
+title Communication flow with multiple devices
+
+participant user [
+    POS user
+    ----
+    ""using terminal 02""
+]
+participant POS as pos
+participant "POS System API" as api
+participant app1 [
+    InStore App 1
+    ----
+    ""terminalID=01""
+]
+participant app2 [
+    InStore App 2
+    ----
+    ""terminalID=02""
+]
+
+user -> pos : 01 Initiate payment
+pos -> api : 02 send payment request\n(terminalID=02)
+group msg to app1
+    api -[#red]-> app1 : 03 broadcast payment request\n(terminalID=02)
+    app1 -> app1: 04 check terminalID\n--> request ignored
+end
+group msg to app2
+    api -[#blue]-> app2 : 03 broadcast payment request\n(terminalID=02)
+    app2 -> app2: 04 check terminalID\n--> request accepted
+    app2 --> api : 05 send payment accepted
+    app2 -> app2 : 06 process payment
+    app2 --> api : 07 send payment response
+end
+api --> pos : 08 send payment response
+pos --> user : 09 display payment result
+
+@enduml

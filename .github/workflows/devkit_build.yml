@@ -1,0 +1,31 @@
+name: DevKit Build
+
+on:
+    workflow_dispatch:
+    pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-slim
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Make build script executable
+        run: chmod +x DevKit/build/build.sh
+      
+      - name: Execute build script
+        run: ./DevKit/build/build.sh
+        working-directory: .
+      
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pos-system-api-devkit-${{ steps.date.outputs.date }}
+          path: DevKit/build/pos-system-api-devkit-package/
+          if-no-files-found: error

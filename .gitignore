@@ -1,0 +1,5 @@
+**/*.pdf
+artifacts/
+**/bin/
+**/obj/
+**/.vs/

@@ -26,17 +26,26 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib
         internal static string PathPrefix { get; private set; } = string.Empty;
         internal static Guid CashBoxId { get; private set; }
 
+        internal static Guid PosSystemId { get; private set; }
+
         /// <summary>
         /// Initializes the ftPosAPI client with the given parameters.
         /// </summary>
         /// <param name="cashboxID"></param>
         /// <param name="cashboxAccessToken"></param>
+        /// <param name="posSystemID">
+        /// Identifies the calling possystem.  
+        /// For development and dev-testing purposes when using the fiskaltrust sandbox environment, you can use "00000000-0000-0000-0000-000000000000" as value.  
+        /// For production usage and release tests you have to use a valid possystem id issued by fiskaltrust by adding/registering a "POS System" in the fiskaltrust portal.
+        /// Further details about POS System registration can be found in the fiskaltrust PosCreator documentation described in the section about PosDealer onboarding.
+        /// </param>
         /// <param name="posSystemAPIUrl"></param>
         /// <param name="httpTimeoutSeconds">Timeout for HTTP requests in seconds.</param>
-        public static void Init(Guid cashboxID, string cashboxAccessToken, string posSystemAPIUrl = "https://possystem-api-sandbox.fiskaltrust.eu/v2", int httpTimeoutSeconds = 60)
+        public static void Init(Guid cashboxID, string cashboxAccessToken, Guid posSystemID, string posSystemAPIUrl = "https://possystem-api-sandbox.fiskaltrust.eu/v2", int httpTimeoutSeconds = 60)
         {
             POSSystemAPIUrl = posSystemAPIUrl;
             CashBoxId = cashboxID;
+            PosSystemId = posSystemID;
             Uri uri = new Uri(posSystemAPIUrl);
             PathPrefix = uri.AbsolutePath;
 
@@ -47,6 +56,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib
             };
             Client.DefaultRequestHeaders.Add("x-cashbox-id", CashBoxId.ToString());
             Client.DefaultRequestHeaders.Add("x-cashbox-accesstoken", cashboxAccessToken);
+            Client.DefaultRequestHeaders.Add("x-possystem-id", PosSystemId.ToString());
         }
 
         public static async Task<(bool success, EchoRequestResponse? responseMessage)> EchoAsync(string message = "Hello fiskaltrust POS System API!")

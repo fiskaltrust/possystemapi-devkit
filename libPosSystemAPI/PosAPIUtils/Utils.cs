@@ -133,8 +133,32 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
                 Logger.LogInfo("Using POS System API URL from environment FISKALTRUST_POS_SYSTEM_API_URL: " + posSystemAPIUrl);
             }
 
+            string? posSystemIDStr = Environment.GetEnvironmentVariable("FISKALTRUST_POS_SYSTEM_ID");
+            Guid? posSystemID = null;
+            if (posSystemIDStr == null)
+            {
+                Logger.LogWarning("!!! ATTENTION !!!");
+                Logger.LogWarning("FISKALTRUST_POS_SYSTEM_ID not set, using default ID 00000000-0000-0000-0000-000000000000");
+                Logger.LogWarning("NOT FOR PRODUCTION USE! ONLY FOR DEVELOPMENT AND TESTING PURPOSES WITH THE FISKALTRUST SANDBOX ENVIRONMENT!");
+                Logger.LogWarning("!!! ATTENTION !!!");
+                posSystemID = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            }
+            else
+            {
+                try
+                {
+                    posSystemID = Guid.Parse(posSystemIDStr);
+                }
+                catch (FormatException)
+                {
+                    Logger.LogError($"Invalid POS System ID format in environment variable FISKALTRUST_POS_SYSTEM_ID  {posSystemIDStr}");
+                    return (false, "Invalid POS System ID format. Please ensure FISKALTRUST_POS_SYSTEM_ID is a valid GUID.");
+                }
+                Logger.LogInfo("Using POS System ID from environment FISKALTRUST_POS_SYSTEM_ID: " + posSystemID);
+            }
+
             Logger.LogInfo("Initializing ftPosAPI for cashbox ID: " + credentials.Value.ftCashboxID);
-            ftPosAPI.Init(credentials.Value.ftCashboxID, credentials.Value.ftCashboxAccessToken, posSystemAPIUrl, 75);
+            ftPosAPI.Init(credentials.Value.ftCashboxID, credentials.Value.ftCashboxAccessToken, posSystemID.Value, posSystemAPIUrl, 75);
 
             (bool success, _) = await ftPosAPI.EchoAsync();
             if (!success)

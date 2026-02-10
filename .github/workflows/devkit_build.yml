@@ -13,10 +13,10 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Make build script executable
-        run: chmod +x DevKit/build/build.sh
+        run: chmod +x build/build.sh
       
       - name: Execute build script
-        run: ./DevKit/build/build.sh
+        run: ./build/build.sh
         working-directory: .
       
       - name: Get current date
@@ -27,5 +27,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pos-system-api-devkit-${{ steps.date.outputs.date }}
-          path: DevKit/build/pos-system-api-devkit-package/
+          path: build/pos-system-api-devkit-package/
           if-no-files-found: error

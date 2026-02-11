@@ -37,7 +37,7 @@ Currently, How-To's are provided in C# only. To run them, review the following:
 - Then, choose the How-To to debug from the debug target dropdown in the "Run and debug" view.
 
 **Using the Command Line (alternatively)**
-- Open a terminal and navigate to the How-To directory that you want to run.
+- Open a terminal window and navigate to the How-To directory that you want to run.
 - Execute the following command: `dotnet run`.
 
 ### Installing and Configuring the InStore App

@@ -112,7 +112,7 @@ In this scenario, the InStore App is installed on a separate Android device posi
 
 ### Payment Communication Flow – terminalID-Based Routing and Filtering
 
-When using multiple devices, configure the `terminalID` in the InStore App settings so that each device uses its own unique `terminalID` in the connected CashBox, as follows:
+When using multiple devices, [configure](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/available-settings#terminal-id-filter) the `terminalID` in the InStore App settings so that each device uses its own unique `terminalID` in the connected CashBox, as follows:
 
 ![](docs/images/instoreapp_settings_terminalID.png)
 

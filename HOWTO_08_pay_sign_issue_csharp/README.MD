@@ -13,7 +13,7 @@ This How-To demonstrates the following:
 - Initial credential reading and executing an `/echo` request to verify that the **fiskaltrust POS System API** backend is reachable (handled by `libPosSystemAPI`).
 - Creation of a dummy list of charge items.
 - Executing the following actions using `ftPosAPIOperationRunner`, which is a helper class that wraps the retry logic:
-  1. `/pay` the charge items.
-  2. Generate the receipt information using `/sign`.
-  3. Deliver the receipt to the user via `/issue`.
+  - `/pay` the charge items.
+  - Generate the receipt information using `/sign`.
+  - Deliver the receipt to the user via `/issue`.
 - Waiting for the receipt delivered status.

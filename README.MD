@@ -8,7 +8,7 @@
 - [Architecture and Handling of Multi-Terminal Setups](#architecture-and-handling-of-multi-terminal-setups)
   - [Component Deployment](#component-deployment)
   - [Payment Communication Flow – terminalID-Based Routing and Filtering](#payment-communication-flow---terminalid-based-routingfiltering)
-  - [Payment Communication flow - protocol-Based Routing and Filtering](#payment-communication-flow---protocol-based-routingfiltering)
+  - [Payment Communication Flow - protocol-Based Routing and Filtering](#payment-communication-flow---protocol-based-routingfiltering)
 - [Debugging the Communication](#debugging-the-communication)
 - [Related Links](#useful-followup-links)
 

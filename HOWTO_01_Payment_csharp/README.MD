@@ -4,7 +4,7 @@
 
 Install and configure the **InStore app** to execute payments. For more information, see the [Development Kit README](https://github.com/fiskaltrust/possystemapi-devkit/blob/main/README.MD).
 
-## What to expect when running this HOWTO
+## What to expect when running this How-To
 
 All How-To's reuse code provided as a .NET assembly/library in source, which can be found in the `../libPosSystemAPI/` directory. After trying out the How-To's, reviewing this code is recommended to gain a better understanding of how it works under the hood and how it interacts with the **POS System API**.
 

@@ -38,11 +38,14 @@ So far we only provide HOWTOs written in C#. To run them:
 ### Install and configure the InStore App
 
 - InStore App is [installed](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/installation-guides) and connected to a CashBox via your fiskaltrust sandbox portal
-- the HOWTO(s) use environment variables for configuration
+- the HOWTO(s) use environment variables for configuration (read via the used libPosSystemAPI further discussed in HOWTO 01)
     - `FISKALTRUST_CASHBOX_ID` - can be found in your fiskaltrust portal when configuring the CashBox
     - `FISKALTRUST_CASHBOX_ACCESS_TOKEN` - can be found in your fiskaltrust portal when configuring the CashBox
     - `FISKALTRUST_POS_SYSTEM_API_URL`  
       default is `https://possystem-api-sandbox.fiskaltrust.eu/v2`
+    - `FISKALTRUST_POS_SYSTEM_ID` - required for production use
+      For production usage and release tests you have to use a valid possystem id issued by fiskaltrust by adding/registering a "POS System" in the fiskaltrust portal.
+      Further details about POS System registration can be found in the fiskaltrust PosCreator documentation described in the section about PosDealer onboarding.
 - A payment provider is [configured](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/available-settings#payment-settings)
 
 #### Using the `Dummy Payment Provider` for easier integration (InStore App Developer Mode)

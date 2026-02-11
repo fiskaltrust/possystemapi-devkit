@@ -82,7 +82,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.Test
         {
             (Guid ftCashboxID, string ftCashboxAccessToken)? credentials = Utils.GetCashboxCredentialsFromEnvironment();
             string? posSystemAPIUrl = Environment.GetEnvironmentVariable("FISKALTRUST_POS_SYSTEM_API_URL");
-            ftPosAPI.Init(credentials!.Value.ftCashboxID, credentials.Value.ftCashboxAccessToken, posSystemAPIUrl!, 75);
+            ftPosAPI.Init(credentials!.Value.ftCashboxID, credentials.Value.ftCashboxAccessToken, Guid.Parse("00000000-0000-0000-0000-000000000000"), posSystemAPIUrl!, 75);
             return credentials.Value.ftCashboxID;
         }
     }

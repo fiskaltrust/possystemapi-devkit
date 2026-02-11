@@ -118,7 +118,7 @@ When using multiple devices, [configure](https://docs.fiskaltrust.eu/docs/poscre
 
 When executing requests from the POS, it is essential to use the `terminalID` to ensure that each request is routed to the correct target system. 
 
-**Example:** A waiter uses an Android smartphone (terminal 02) running the POS app, with the InStore App installed. When a payment transaction is triggered, the request is routed specifically to the InStore App instance associated with terminal 02.
+**Example:** A user (e.g., a waiter) uses an Android smartphone (terminal 02) to operate the POS app, on which the InStore App is installed, and a payment transaction is triggered:
 
 ![](docs/diagrams/out/diagrams/possystemapi_payment_architecture/payment_comm_flow.svg)
 

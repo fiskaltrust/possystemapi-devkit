@@ -100,7 +100,7 @@ The following are two common deployment scenarios for the InStore App. Other con
 
 #### Restaurant - Mobile Ordering Scenario
 
-When using two devices, a typical setup might as follows:
+When using two devices, the setup may be structured as follows:
 
 ![](docs/diagrams/out/diagrams/possystemapi_payment_architecture/comp_deploy_restaurant_multi_device.svg)
 

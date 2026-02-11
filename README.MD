@@ -26,7 +26,7 @@ Currently, How-To's are provided in C# only. To run them, review the following:
 
 **Prerequisites**
 - Install the `.NET 9` runtime and SDK.
-- Review the How-To that you want to run for any additional prerequisites.
+- Review the README in the How-To that you want to use for any additional prerequisites.
 - (Optional) Use Visual Studio or Visual Studio Code for easier project and solution handling.
 
 **Using Visual Studio**

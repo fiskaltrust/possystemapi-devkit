@@ -137,7 +137,7 @@ In addition to the terminalID, payment requests are also routed and filtered bas
 
 ## Debugging the Communication
 
-It is recommended to use [mitmproxy](https://www.mitmproxy.org/) as an intermediary between your solution and the POS System API to inspect all requests and responses exchanged between them. For this, complete the following:
+It is recommended to use [mitmproxy](https://www.mitmproxy.org/) as an intermediary between your solution and the POS System API to see exactly which requests are being sent and received. For this, complete the following:
 
 - Refer to [mitmproxy.bat](mitmproxy.bat) for instructions on how to run it.
 - Set the `FISKALTRUST_POS_SYSTEM_API_URL` environment variable as described in [HOWTO_01_Payment](HOWTO_01_Payment_csharp/README.MD) to `http://localhost:8080/v2`, which is the address the mitmproxy listens when using the batch file to start it.

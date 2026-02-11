@@ -33,8 +33,8 @@ Currently, How-To's are provided in C# only. To run them, review the following:
 - Open the solution file of the How-To that you want and run it.
 
 **Using Visual Studio Code (VS Code)**
-- A debug configuration is already provided.
-- Select the How-To to debug from the debug target dropdown in the "Run and debug" view.
+- The VS Code debug configuration should already be set up.
+- Then, choose the How-To to debug from the debug target dropdown in the "Run and debug" view.
 
 **Using the Command Line**
 - Open a terminal and navigate to the How-To directory that you want to run.

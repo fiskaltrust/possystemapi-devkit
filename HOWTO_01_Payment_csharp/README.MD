@@ -2,8 +2,7 @@
 
 ## Prerequisites
 
-Install and configure the **InStore app** to execute payments. For more information, see the [Development Kit README](possystemapi-devkit
-/README.MD).
+Install and configure the **InStore app** to execute payments. For more information, see the [Development Kit README](https://github.com/fiskaltrust/possystemapi-devkit/blob/main/README.MD).
 
 ## What to expect when running this HOWTO
 

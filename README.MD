@@ -88,7 +88,7 @@ Any payment amount will return a SUCCESS response, except for the following defi
 
 ### Before You Continue – Try It Out
 
-As a first step, review the [HOWTO 01 Payment readme](HOWTO_01_Payment_csharp/README.MD) to complete the initial setup. Once your setup is working, continue here to gain a deeper understanding and explore the other How-To's.
+As a first step, review the [HOWTO_01_Payment](HOWTO_01_Payment_csharp/README.MD) to complete the initial setup. Once your setup is working, continue here to gain a deeper understanding and explore the other How-To's.
 
 ## Architecture and Handling of Multi-Terminal Setups
 
@@ -140,7 +140,7 @@ Review the following **message routing rules**:
 It is recommended to use [mitmproxy](https://www.mitmproxy.org/) as an intermediary between your solution and the POS System API to inspect all requests and responses exchanged between them. For this, complete the following:
 
 - Refer to [mitmproxy.bat](mitmproxy.bat) for instructions on how to run it.
-- Set the `FISKALTRUST_POS_SYSTEM_API_URL` environment variable as described in **How-To #1 - Getting started with payment in C#** to `http://localhost:8080/v2`, which is the address the mitmproxy listens when using the batch file to start it.
+- Set the `FISKALTRUST_POS_SYSTEM_API_URL` environment variable as described in [HOWTO_01_Payment](HOWTO_01_Payment_csharp/README.MD) to `http://localhost:8080/v2`, which is the address the mitmproxy listens when using the batch file to start it.
 
 With this setup, all requests from the How-To's are routed through mitmproxy, where they can be inspected. mitmproxy then forwards the requests to the POS System API as configured in the batch file.
 

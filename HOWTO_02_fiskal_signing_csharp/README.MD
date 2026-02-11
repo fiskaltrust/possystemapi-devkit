@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Ensure that the **POS System API** and CashBox configuration are set up and ready for fiscal signing. For more information, [fiskaltrust documentation](https://docs.fiskaltrust.cloud/).
+Ensure that the **POS System API** and CashBox configuration are set up and ready for fiscal signing. For more information, see the [fiskaltrust documentation](https://docs.fiskaltrust.cloud/).
 
 ## What to expect when running this How-To
 

@@ -52,7 +52,7 @@ Install and configure the InStore App as follows:
   - `FISKALTRUST_POS_SYSTEM_ID`: required for production use. For production usage and release testing, you must use a valid POS System ID issued by **fiskaltrust**. You can obtain this ID by adding/registering a POS System in the **fiskaltrust** portal. For more information about the POS System registration, see [PosDealer Onboarding](https://docs.fiskaltrust.eu/docs/poscreators/get-started#3-posdealer-onboarding).
 - [Configure](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/available-settings#payment-settings) a payment provider.
 
-#### Using the Dummy Payment Provider for simplified integration (InStore App Developer Mode)
+#### Using the Dummy Payment Provider for Simplified Integration (InStore App Developer Mode)
 
 **IMPORTANT**: This feature is available with InStore App v1.2.8-rc1 and later.
 

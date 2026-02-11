@@ -96,7 +96,7 @@ As a first step, review the [HOWTO_01_Payment](HOWTO_01_Payment_csharp/README.MD
 
 ### Component Deployment
 
-The following are two common deployment scenarios for the InStore App. Other configurations are possible; these examples illustrate typical setups.
+Below are two common scenarios for the InStore App. While other configurations are possible, these examples represent typical setups.
 
 #### Restaurant - Mobile Ordering Scenario
 

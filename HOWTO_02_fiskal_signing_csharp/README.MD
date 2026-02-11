@@ -1,17 +1,16 @@
-# HOWTO 02 - Getting started with fiskal signing in C#
+# HOWTO 02 - Getting started with fiscal signing in C#
 
 ## Prerequisites
 
-Have the POS System API + Cashbox config set up and ready to go for fiskal signing. See [fiskaltrust documentation](https://docs.fiskaltrust.cloud/) for further details.
+Ensure that the **POS System API** and CashBox configuration are set up and ready for fiscal signing. For more information, see the [fiskaltrust documentation](https://docs.fiskaltrust.cloud/).
 
-## What to expect when running this HOWTO
+## What to expect when running this How-To
 
-All our howtos are reusing some code that is provided as a .NET Assembly/library in source and can be found in `../libPosSystemAPI/` directory. Please check it after trying out the HOWTOs to get a better understanding what it does under the hood and how it interacts with the POS System API.
+All How-To's reuse code provided as a .NET assembly/library in source, which can be found in the `../libPosSystemAPI/` directory. After trying out the How-To's, reviewing this code is recommended to gain a better understanding of how it works under the hood and how it interacts with the **POS System API**.
 
-The HOWTO demonstrates
+This How-To demonstrates the following:
 
-- initial credential reading and executing an `/echo` request to know if the fiskaltrust / POS System API backend is reachable (actually done by libPosSystemAPI)
-- creates a `/sign` request to similate signing a receipt
-- writes the result of that request to the console
-- basic error handling
-
+- Initial credential reading and executing an `/echo` request to verify that the **fiskaltrust POS System API** backend is reachable (handled by `libPosSystemAPI`).
+- Creation of a `/sign` request to simulate signing a receipt.
+- Writing the result of the request to the console.
+- Basic error handling.

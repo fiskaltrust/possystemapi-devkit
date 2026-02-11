@@ -61,13 +61,13 @@ The InStore App supports a developer mode. When enabled, a hidden **Dummy Paymen
 1. Start the InStore App and navigate to the home screen.
 2. At the bottom of the screen, tap the **fiskaltrust** logo five times to open the Developer Mode PIN entry dialog.
 3. Enter the PIN: `4242`.
-4. If successful, an information dialog will appear confirming that Developer Mode is enabled. Tap OK to close the dialog; the app will then exit automatically.
+4. If successful, an information dialog will appear confirming that Developer Mode is enabled. Tap OK to close the dialog. The app will then exit automatically.
 
 **Configuring the Dummy Payment Provider**
 
 1. Restart the InStore App.
 2. Open **Settings** and navigate to the **Payment settings** section.
-3. Tap on **Payment entry** (the first item in **Payment Settings**) and select the **Dummy Payment Provider**, which is now visible because the developer mode is active.
+3. Tap **Payment entry** (the first item in **Payment Settings**) and select the **Dummy Payment Provider**, which is now visible because the developer mode is active.
 
 **Using the Dummy Payment Provider**
 

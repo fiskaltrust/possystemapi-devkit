@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
   - [Running the How-To's](#running-the-howtos)
-  - [Before you continue - Try It Out](#before-you-continue---try-it-out)
+  - [Before You Continue - Try It Out](#before-you-continue---try-it-out)
 - [Architecture and Handling of Multi-Terminal Setups](#architecture-and-handling-of-multi-terminal-setups)
   - [Component Deployment](#component-deployment)
   - [Payment Communication Flow – terminalID-Based Routing and Filtering](#payment-communication-flow---terminalid-based-routingfiltering)
@@ -49,7 +49,7 @@ Install and configure the InStore App as follows:
   - `FISKALTRUST_CASHBOX_ID`: found in your **fiskaltrust** portal when configuring the CashBox.
   - `FISKALTRUST_CASHBOX_ACCESS_TOKEN`: found in your **fiskaltrust** portal when configuring the CashBox.
   - `FISKALTRUST_POS_SYSTEM_API_URL`: the default value is `https://possystem-api-sandbox.fiskaltrust.eu/v2`.
-  - `FISKALTRUST_POS_SYSTEM_ID` - required for production use. For production usage and release testing, you must use a valid POS System ID issued by **fiskaltrust**. You can obtain this ID by adding/registering a POS System in the **fiskaltrust** portal. For more information about the POS System registration, see [PosDealer Onboarding](https://docs.fiskaltrust.eu/docs/poscreators/get-started#3-posdealer-onboarding).
+  - `FISKALTRUST_POS_SYSTEM_ID`: required for production use. For production usage and release testing, you must use a valid POS System ID issued by **fiskaltrust**. You can obtain this ID by adding/registering a POS System in the **fiskaltrust** portal. For more information about the POS System registration, see [PosDealer Onboarding](https://docs.fiskaltrust.eu/docs/poscreators/get-started#3-posdealer-onboarding).
 - [Configure](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/available-settings#payment-settings) a payment provider.
 
 #### Using the Dummy Payment Provider for simplified integration (InStore App Developer Mode)

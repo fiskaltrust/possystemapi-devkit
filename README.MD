@@ -124,13 +124,13 @@ When executing requests from the POS, it is essential to use the `terminalID` to
 
 ### Payment Communication flow - protocol-Based Routing and Filtering
 
-In addition to the terminalID, payment requests are also routed and filtered based on the protocol specified in the request. The protocol corresponds to the [payment vendor configured](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/available-settings#payment-settings) on the target device in the InStore App settings.
+In addition to the terminalID, payment requests are also routed and filtered based on the protocol specified in the request. The protocol corresponds to the [payment vendor configured](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/available-settings#payment-settings) used on the target device in the InStore App settings.
 
 **Example:** Using **Viva Wallet SoftPay** maps to the protocol `viva_eft_pos_instore`:
 
 ![](docs/images/instoreapp_settings_payment.png)
 
-Review the following **message routing rules**:
+**Message routing rules**:
 
 - `protocol == use_auto`: If any payment vendor is configured, the request gets accepted.
 - `protocol == specific protocol` (e.g.,`viva_eft_pos_instore`): The request is only accepted if the payment vendor that supports this protocol is configured (in this example, **Viva Wallet SoftPay**).

@@ -1,4 +1,4 @@
-# HOWTO 02 - Getting started with fiskal signing in C#
+# HOWTO 02 - Getting started with fiscal signing in C#
 
 ## Prerequisites
 

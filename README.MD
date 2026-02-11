@@ -132,8 +132,8 @@ In addition to the terminalID, payment requests are also routed and filtered bas
 
 **Message routing rules**:
 
-- `protocol == use_auto`: If any payment vendor is configured, the request gets accepted.
-- `protocol == specific protocol` (e.g.,`viva_eft_pos_instore`): The request is only accepted if the payment vendor that supports this protocol is configured (in this example, **Viva Wallet SoftPay**).
+- protocol == `use_auto`: If any payment vendor is configured, the request gets accepted.
+- protocol == specific protocol (e.g.,`viva_eft_pos_instore`): The request is only accepted if the payment vendor that supports this protocol is configured (in this example, **Viva Wallet SoftPay**).
 
 ## Debugging the Communication
 

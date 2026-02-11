@@ -45,7 +45,7 @@ Currently, How-To's are provided in C# only. To run them, review the following:
 Install and configure the InStore App as follows:
 
 - [Install](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/installation-guides) **InStore App** and connect it to a CashBox via your **fiskaltrust** sandbox portal.
-- The How-To's use the following environment variables for configuration:
+- The How-To's use the following environment variables for configuration, which are read via the `libPosSystemAPI` (as further explained in [HOWTO_01_Payment](HOWTO_01_Payment_csharp/README.MD).”:
   - `FISKALTRUST_CASHBOX_ID`: found in your **fiskaltrust** portal when configuring the CashBox.
   - `FISKALTRUST_CASHBOX_ACCESS_TOKEN`: found in your **fiskaltrust** portal when configuring the CashBox.
   - `FISKALTRUST_POS_SYSTEM_API_URL`: the default value is `https://possystem-api-sandbox.fiskaltrust.eu/v2`.

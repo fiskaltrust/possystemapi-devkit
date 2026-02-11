@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
   - [Running the How-To's](#running-the-howtos)
-  - [Before you continue - try it out](#before-you-continue---try-it-out)
+  - [Before you continue - Try It Out](#before-you-continue---try-it-out)
 - [Architecture and Handling of Multi-Terminal Setups](#architecture-and-handling-of-multi-terminal-setups)
   - [Component Deployment](#component-deployment)
   - [Payment Communication Flow – terminalID-Based Routing and Filtering](#payment-communication-flow---terminalid-based-routingfiltering)
@@ -54,7 +54,7 @@ Install and configure the InStore App as follows:
 
 #### Using the Dummy Payment Provider for simplified integration (InStore App Developer Mode)
 
-IMPORTANT: This feature is available with InStore App v1.2.8-rc1 and later.
+**IMPORTANT**: This feature is available with InStore App v1.2.8-rc1 and later.
 
 The InStore App supports a developer mode. When enabled, a hidden **Dummy Payment Provider** can be configured, allowing easy integration and testing of different payment success and error scenarios without requiring access to a real payment provider. To enable the developer mode in the InStore App, complete the following steps:
 

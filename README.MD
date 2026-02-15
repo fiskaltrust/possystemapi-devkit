@@ -156,4 +156,3 @@ With this setup, all requests from the How-To's are routed through mitmproxy, wh
     - For development, it might be useful to use the [preview release](https://link.fiskaltrust.eu/downloads/instoreapp/preview) instead of the [stable release](https://link.fiskaltrust.eu/downloads/instoreapp/stable)
 - Important reading to avoid setup errors
   - [Multi-terminal setup](https://docs.fiskaltrust.eu/docs/poscreators/middleware-doc/instore-app/multiterminal-settings) - Learn how to avoid duplicate transactions
-

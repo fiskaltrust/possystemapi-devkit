@@ -80,7 +80,7 @@ Any payment amount will return a SUCCESS response, except for the following defi
 | 30000,10 | DECLINED |
 | 30000,20 | TIMEOUT (returned as an error message as no other option is available yet) |
 | 30000,40 | CANCELLED BY USER |
-| 30000,50 | SUCCESS with added guest tip |
+| 30000,50 | SUCCESS with added guest tip (see [HOWTO_01_Payment](HOWTO_01_Payment_csharp/README.MD) on how to handle such a tip) |
 | 30000,60 | SUCCESS after 1-minute delay |
 | 30000,70 | SUCCESS after 3-minute delay |
 | 30000,80 | SUCCESS after 6-minute delay |

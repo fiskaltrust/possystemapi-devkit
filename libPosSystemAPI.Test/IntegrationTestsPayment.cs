@@ -39,7 +39,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.Test
             Assert.NotNull(payResponse);
             Assert.True(payResponse.Protocol == Payment.DTO.PaymentProtocol.use_auto);
             Assert.NotNull(payResponse.ftPayItems);
-            // dummy payment provider should return exactly one pay item (as we did not execute a 30000,50 which would result in multiple pay items as there would be a tip)
+            // dummy payment provider should return exactly one pay item
             Assert.Single(payResponse.ftPayItems);
 
             PayItem pi = payResponse!.ftPayItems![0];

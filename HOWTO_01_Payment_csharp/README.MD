@@ -29,7 +29,7 @@ In all of these cases, the solution is to resend the original request using the 
 ## Special case - payment vendor added TIP
 
 In many payment vendor apps it is possible to add a tip to the payment amount.
-Flow example in a restaruant:
+Flow example in a restaurant:
 - Guest asks for the bill
 - Waiter triggers to create the bill at the POS (e.g. mobile device)
 - The POS on the mobile device pushes the amount (for example 10€) to be paid to the configured payment app (via POS System API and the fiskaltrust InStore App)
@@ -41,6 +41,6 @@ Flow example in a restaruant:
   - 2 pay items
   - Pay item 1: The fully paid amount with the receipt -> 12€
   - Pay item 2: The tip with negative amount -> -2€
-  - sum of the 2 pay items is the orginal requested amount of 10€
+  - sum of the 2 pay items is the original requested amount of 10€
 
-NOTE: The tip can be calculated by simply substracting the requested amount from the paid amount (12-10 = 2€ tip) or alternatively from the 2nd pay item (-2 * -1 = 2€ tip).
+NOTE: The tip can be calculated by simply subtracting the requested amount from the paid amount (12-10 = 2€ tip) or alternatively from the 2nd pay item (-2 * -1 = 2€ tip).

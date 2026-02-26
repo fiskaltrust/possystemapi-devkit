@@ -211,26 +211,31 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
                     protocol = protocolValue.GetString() ?? "ERROR: invalid type";
                 }
                 Logger.LogInfo($"- PayItem {i+1}");
+                Logger.LogInfo($"\t\tDescription: {ftPayItem.Description}");
                 if (protocol != "unknown") Logger.LogInfo($"\t\tprotocol: {protocol}");
                 Logger.LogInfo($"\t\tAmount: {ftPayItem.Amount}");
-                if (payItemRequest != null)
+                // only show calculate included tip and process receipt for the real payment item and not for the additional info entries
+                if (payItemCaseData != null)
                 {
-                    decimal tipAmount = ftPayItem.Amount - payItemRequest.Amount;
-                    Logger.LogInfo($"\t\t\tIncluded Tip Amount: {tipAmount}");
-                }
-                Logger.LogInfo("\t\tReceipt:");
-                if (payItemCaseData?.Receipt == null)
-                {
-                    Logger.LogInfo("\t\t\t WARNING: No receipt info received!");
-                }
-                else
-                {
-                    string[]? payReceipt = ftPayItem.GetPayItemCaseData()?.Receipt;
-                    if (payReceipt != null)
+                    if (payItemRequest != null)
                     {
-                        foreach (string line in payReceipt)
+                        decimal tipAmount = ftPayItem.Amount - payItemRequest.Amount;
+                        Logger.LogInfo($"\t\t\tIncluded Tip Amount: {tipAmount}");
+                    }
+                    Logger.LogInfo("\t\tReceipt:");
+                    if (payItemCaseData?.Receipt == null)
+                    {
+                        Logger.LogInfo("\t\t\t WARNING: No receipt info received!");
+                    }
+                    else
+                    {
+                        string[]? payReceipt = ftPayItem.GetPayItemCaseData()?.Receipt;
+                        if (payReceipt != null)
                         {
-                            Logger.LogInfo($"\t\t\t{line}");
+                            foreach (string line in payReceipt)
+                            {
+                                Logger.LogInfo($"\t\t\t{line}");
+                            }
                         }
                     }
                 }

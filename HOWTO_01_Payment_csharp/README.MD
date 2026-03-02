@@ -39,7 +39,7 @@ In many payment vendor apps, it is possible to add a tip to the payment amount.
 7. The payment app reports a paid amount of 12€ (including 2€ tip).
 8. The **fiskaltrust** InStore App / POS System API reports the following in the payment response (see also an example on the POS System API docs):
   - 2 pay items
-  - Pay item 1: The fully paid amount with the receipt -> 12€
+  - Pay item 1: The total paid amount with the receipt -> 12€
   - Pay item 2: The tip with negative amount -> -2€
   - sum of the 2 pay items is the original requested amount of 10€
 

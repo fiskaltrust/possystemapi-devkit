@@ -43,4 +43,4 @@ In many payment vendor apps, it is possible to add a tip to the payment amount.
   - Pay item 2: The tip with a negative amount -> -2€
   - The sum of the 2 pay items is the original requested amount of 10€
 
-NOTE: The tip can be calculated by simply subtracting the requested amount from the paid amount (12-10 = 2€ tip) or alternatively from the 2nd pay item (-2 * -1 = 2€ tip).
+**NOTE:** The tip can be calculated by simply subtracting the requested amount from the paid amount (12-10 = 2€ tip) or alternatively by using the 2nd pay item (-2 * -1 = 2€ tip).

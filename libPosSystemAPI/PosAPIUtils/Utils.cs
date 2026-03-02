@@ -182,7 +182,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
             return (ftCashboxID, ftCashboxAccessToken);
         }
 
-        public static void DumpToLogger(PayResponse payResp)
+        public static void DumpToLogger(PayResponse payResp, PayItemRequest? payItemRequest = null)
         {
             Logger.LogInfo("Payment successful! Queue ID: " + payResp.ftQueueID);        
             if (payResp.ftPayItems == null || payResp.ftPayItems.Length == 0)
@@ -193,9 +193,15 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
             
             // pretty log the response (JSON)
             Logger.LogDebug("PayResponse: " + JsonSerializer.Serialize(payResp, new JsonSerializerOptions { WriteIndented = true }));
-
-            foreach (PayItem ftPayItem in payResp.ftPayItems)
+            if (payItemRequest != null)
             {
+                Logger.LogInfo("Requested Payment:");
+                Logger.LogInfo($"- Amount: {payItemRequest.Amount}");
+            }
+            Logger.LogInfo("Received Pay Response:");
+            for (int i = 0; i < payResp.ftPayItems.Length; i++)
+            {
+                PayItem ftPayItem = payResp.ftPayItems[i];
                 var payItemCaseData = ftPayItem.GetPayItemCaseData();
 
                 Dictionary<string, JsonElement>? providerInfo = payItemCaseData?.Provider;
@@ -204,19 +210,32 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
                 {
                     protocol = protocolValue.GetString() ?? "ERROR: invalid type";
                 }
-                Logger.LogInfo($"- {protocol}:");
-                if (payItemCaseData?.Receipt == null)
+                Logger.LogInfo($"- PayItem {i+1}");
+                Logger.LogInfo($"\t\tDescription: {ftPayItem.Description}");
+                if (protocol != "unknown") Logger.LogInfo($"\t\tprotocol: {protocol}");
+                Logger.LogInfo($"\t\tAmount: {ftPayItem.Amount}");
+                // only show calculate included tip and process receipt for the real payment item and not for the additional info entries
+                if (payItemCaseData != null)
                 {
-                    Logger.LogInfo("\t WARNING: No receipt info received!");
-                }
-                else
-                {
-                    string[]? payReceipt = ftPayItem.GetPayItemCaseData()?.Receipt;
-                    if (payReceipt != null)
+                    if (payItemRequest != null)
                     {
-                        foreach (string line in payReceipt)
+                        decimal tipAmount = ftPayItem.Amount - payItemRequest.Amount;
+                        Logger.LogInfo($"\t\t\tIncluded Tip Amount: {tipAmount}");
+                    }
+                    Logger.LogInfo("\t\tReceipt:");
+                    if (payItemCaseData?.Receipt == null)
+                    {
+                        Logger.LogInfo("\t\t\t WARNING: No receipt info received!");
+                    }
+                    else
+                    {
+                        string[]? payReceipt = ftPayItem.GetPayItemCaseData()?.Receipt;
+                        if (payReceipt != null)
                         {
-                            Logger.LogInfo($"\t{line}");
+                            foreach (string line in payReceipt)
+                            {
+                                Logger.LogInfo($"\t\t\t{line}");
+                            }
                         }
                     }
                 }

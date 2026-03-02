@@ -25,3 +25,22 @@ Several critical error scenarios must be managed carefully to prevent double pay
 - The response is not received within the expected time frame (HTTP timeout), which can be simulated by a device losing internet connectivity during payment execution.
 
 In all of these cases, the solution is to resend the original request using the identical operation ID and request body. The backend will then return the final result of the operation.
+
+## Special case - payment vendor added TIP
+
+In many payment vendor apps, it is possible to add a tip to the payment amount.
+**Example flow in a restaurant:**
+1. The guest asks for the bill.
+2. The waiter triggers to create the bill on the POS (e.g., mobile device).
+3. The POS on the mobile device sends the amount (e.g., 10€) to be paid to the configured payment app via POS System API and the **fiskaltrust** InStore App.
+4. The payment app opens, and the waiter hands the mobile device to the guest.
+5. The guest sees a TIP entry screen and adds a tip of 2€.
+6. The guest now pays the full sum of 12€.
+7. The payment app reports a paid amount of 12€ (including 2€ tip).
+8. The **fiskaltrust** InStore App / POS System API reports the following in the payment response (see also an example on the POS System API docs):
+  - 2 pay items
+  - Pay item 1: The total paid amount with the receipt -> 12€
+  - Pay item 2: The tip with a negative amount -> -2€
+  - The sum of the 2 pay items is the original requested amount of 10€
+
+**NOTE:** The tip can be calculated by simply subtracting the requested amount from the paid amount (12-10 = 2€ tip) or alternatively by using the 2nd pay item (-2 * -1 = 2€ tip).

@@ -63,11 +63,12 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                     // - the terminal ID is not defined here (null) so the request will be processed by all available terminals for the cashbox
                     //     IMPORTANT: In a real setup you might want to define a specific terminal ID here to target a specific payment terminal device; especially when multiple payment terminals are registered for the same cashbox!
                     // - we provide the operation ID to be able to retry in case of failure
-                    ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(new PayItemRequest
+                    var payItemRequest = new PayItemRequest
                     {
                         Description = "Card",
                         Amount = amount,
-                    }, fiskaltrust.Payment.DTO.PaymentProtocol.use_auto, null, operationId);
+                    };
+                    ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(payItemRequest, fiskaltrust.Payment.DTO.PaymentProtocol.use_auto, null, operationId);
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // Check Result
@@ -80,7 +81,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                         {
                             // YES --> SUCCESS: Payment was successful
                             PayResponse payResp = await payResult.Operation.GetResponseAsAsync();
-                            Utils.DumpToLogger(payResp);
+                            Utils.DumpToLogger(payResp, payItemRequest);
                             break;
                         }
                         else

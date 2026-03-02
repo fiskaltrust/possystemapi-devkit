@@ -54,14 +54,15 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                 decimal totalAmount = chargeItems.Sum(ci => ci.Amount);
                 Logger.LogInfo($"Total amount to pay: {totalAmount} EUR");
 
+                PayItemRequest payRequest = new()
+                {
+                    Amount = totalAmount,
+                    Description = "Card"
+                };
                 var payRunner = new ftPosAPIOperationRunner();
                 (PayResponse? pResp, string errorMsg) = await payRunner.Execute<PayResponse>(async () =>
                 {
-                    PayItemRequest payRequest = new()
-                    {
-                        Amount = totalAmount,
-                        Description = "Card"
-                    };
+ 
                     return await ftPosAPI.Pay.PaymentAsync(payRequest, PaymentProtocol.use_auto, null, payRunner.OperationID);
                 });
                 
@@ -72,7 +73,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                 else
                 {
                     Logger.LogInfo("Payment succeeded.");
-                    Utils.DumpToLogger(pResp);
+                    Utils.DumpToLogger(pResp, payRequest);
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////
                     /// 

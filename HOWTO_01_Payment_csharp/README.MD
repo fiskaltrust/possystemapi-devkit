@@ -28,7 +28,7 @@ In all of these cases, the solution is to resend the original request using the 
 
 ## Special case - payment vendor added TIP
 
-In many payment vendor apps it is possible to add a tip to the payment amount.
+In many payment vendor apps, it is possible to add a tip to the payment amount.
 Flow example in a restaurant:
 - Guest asks for the bill
 - Waiter triggers to create the bill at the POS (e.g. mobile device)

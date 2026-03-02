@@ -33,7 +33,7 @@ In many payment vendor apps, it is possible to add a tip to the payment amount.
 1. The guest asks for the bill.
 2. The waiter triggers to create the bill on the POS (e.g., mobile device).
 3. The POS on the mobile device sends the amount (e.g., 10€) to be paid to the configured payment app via POS System API and the **fiskaltrust** InStore App.
-- The payment app opens and the waiter hands the mobile device over to the guest
+4. The payment app opens, and the waiter hands the mobile device to the guest.
 - The guest sees a TIP entry screen and adds a tip of 2€
 - The guests now pays the full sum of 12€
 - The payment app reports a paid amount of 12€ (including 2€ of tip)

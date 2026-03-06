@@ -6,7 +6,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
     public class PayItem
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string ftPayItemId { get; set; } = string.Empty;
+        public string? ftPayItemId { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
         public decimal Amount { get; set; }

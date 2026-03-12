@@ -24,6 +24,14 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
         {
             this.cbReceiptReference = cbReceiptReference;
             this.cbChargeItems = cbChargeItems;
+            // verify that empty ftPayItemIDs are null
+            foreach (var payItem in cbPayItems)
+            {
+                if (payItem.ftPayItemId == "")
+                {
+                    payItem.ftPayItemId = null;
+                }
+            }
             this.cbPayItems = cbPayItems;
             this.ftReceiptCase = buildableReceiptCase.Build();
         }

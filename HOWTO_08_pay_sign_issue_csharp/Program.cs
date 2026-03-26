@@ -89,6 +89,14 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                         .SetCountry("AT") // Austria
                         .SetReceiptCase(ReceiptCase.PointOfSaleReceipt0x0001);
                     ReceiptRequest receiptRequest = new ReceiptRequest(receiptReference, receiptCaseBuilder, chargeItems, pResp.ftPayItems);
+                    receiptRequest.ftReceiptCaseData = new FtReceiptCaseData
+                    {
+                        cbReceiptLines = new string[]
+                        {
+                            "This is a test receipt.",
+                            "Thank you for your purchase!"
+                        }
+                    };
                     (ReceiptResponse? rResp, errorMsg) = await signRunner.Execute<ReceiptResponse>(async () =>
                     {
                         return await ftPosAPI.Sign.SignAsync(receiptRequest, signRunner.OperationID);

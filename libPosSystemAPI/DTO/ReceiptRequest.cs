@@ -75,6 +75,11 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? cbPreviousReceiptReference { get; set; }
 
+        [JsonPropertyName("ftReceiptCaseData")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public FtReceiptCaseData? ftReceiptCaseData { get; set; }
+
+
         public JsonContent ToJsonContent()
         {
             return JsonContent.Create(this, options: JsonConfiguration.DefaultOptions);
@@ -102,10 +107,6 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
         public Guid? ftPosSystemId { get; set; }
 
 
-        [JsonProperty("ftReceiptCaseData", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        [JsonPropertyName("ftReceiptCaseData")]
-        [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public object? ftReceiptCaseData { get; set; }
 
         [JsonProperty("ftQueueID", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonPropertyName("ftQueueID")]

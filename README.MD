@@ -58,21 +58,21 @@ Install and configure the InStore App as follows:
 
 The InStore App supports a developer mode that exposes a hidden **Dummy Payment Provider**, allowing easy integration and testing of different payment success and error scenarios without requiring access to a real payment provider.
 
-Developer mode is now activated automatically based on the type of cashbox the InStore App is paired with:
+Developer mode is now automatically activated based on the type of CashBox that the InStore App is paired with:
 
-- **Sandbox cashbox** — Developer mode is **enabled** automatically.
-- **Production cashbox** — Developer mode is **disabled** automatically.
+- **Sandbox CashBox** - Developer mode is **enabled** automatically.
+- **Production CashBox** - Developer mode is **disabled** automatically.
 
-There is no manual toggle, no logo tap, and no PIN entry required.
+Manual controls are no longer available: there is no toggle, logo tap, or PIN entry required.
 
-## Configuring the Dummy Payment Provider
+### Configuring the Dummy Payment Provider
 
-1. Make sure the InStore App is paired with a **sandbox** cashbox.
-2. Open **Settings** and navigate to the **Payment settings** section.
+1. Ensure the InStore App is paired with a **sandbox** CashBox.
+2. Open **Settings** and navigate to the **Payment Settings** section.
 3. Tap **Payment entry** (the first item in **Payment Settings**) and select the **Dummy Payment Provider**, which is visible because developer mode is active.
 
 
-**Using the Dummy Payment Provider**
+### Using the Dummy Payment Provider
 
 When executing a payment action with the `use_auto` or `test` protocol, payments will be processed by the Dummy Payment Provider, which is visible via the payment progress screen that appears when starting a payment action.
 

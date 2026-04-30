@@ -85,17 +85,11 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
             return JsonContent.Create(this, options: JsonConfiguration.DefaultOptions);
         }
 
-        /*
-        [JsonProperty("cbTerminalID", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonPropertyName("cbTerminalID")]
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? cbTerminalID { get; set; }
 
-
-
-
-
-
+        /*
         [JsonProperty("ftCashBoxID", DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonPropertyName("ftCashBoxID")]
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]

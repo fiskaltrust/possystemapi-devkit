@@ -44,6 +44,34 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib
             }
             return await OperationExecutorImpl<PaymentRequest, PayResponse>.Instance.ExecuteOperationAsync(rBuilder);
         }
+
+        /// <summary>
+        /// Queries the result of a previously started payment transaction.
+        /// </summary>
+        /// <param name="operationId">
+        /// Operation ID of the original <c>/pay</c> request.
+        /// The same value is sent as <c>x-operation-id</c> header.
+        /// </param>
+        /// <returns>
+        /// The payment response associated with the provided operation ID.
+        /// </returns>
+        /// <remarks>
+        /// API behavior of <c>/PayResponse</c>:
+        /// <list type="bullet">
+        /// <item><description>If the payment is already finished, the response is returned immediately.</description></item>
+        /// <item><description>If the payment is still in progress, the request blocks until completion and then returns the result.</description></item>
+        /// <item><description>If the operation ID is unknown, the API returns a bad request response.</description></item>
+        /// </list>
+        /// </remarks>
+        public async Task<ExecutedResult<PayResponse>> GetPayResponseAsync(Guid operationId)
+        {
+            // https://docs.fiskaltrust.cloud/apis/pos-system-api#tag/SynchronAPI/paths/~1PayResponse/post
+            var rBuilder = new APIRequestBuilder<PaymentRequest, PayResponse>()
+                .SetMethod(HttpMethod.Post)
+                .SetPath("/PayResponse")
+                .SetOperationID(operationId);
+            return await OperationExecutorImpl<PaymentRequest, PayResponse>.Instance.ExecuteOperationAsync(rBuilder);
+        }
         
         /// <summary>
         /// 

@@ -113,7 +113,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
             }
         }
 
-        public static async Task<(bool success, string errorMsg)> InitFtPosSystemAPIClient ()
+        public static async Task<(bool success, string errorMsg)> InitFtPosSystemAPIClient (int httpTimeoutSeconds = 75)
         {
             (Guid ftCashboxID, string ftCashboxAccessToken)? credentials = GetCashboxCredentialsFromEnvironment();
             if (credentials == null)
@@ -158,7 +158,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.PosAPIUtils
             }
 
             Logger.LogInfo("Initializing ftPosAPI for cashbox ID: " + credentials.Value.ftCashboxID);
-            ftPosAPI.Init(credentials.Value.ftCashboxID, credentials.Value.ftCashboxAccessToken, posSystemID.Value, posSystemAPIUrl, 75);
+            ftPosAPI.Init(credentials.Value.ftCashboxID, credentials.Value.ftCashboxAccessToken, posSystemID.Value, posSystemAPIUrl, httpTimeoutSeconds);
 
             (bool success, _) = await ftPosAPI.EchoAsync();
             if (!success)

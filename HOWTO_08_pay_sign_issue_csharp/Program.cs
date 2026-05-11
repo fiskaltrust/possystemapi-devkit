@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using fiskaltrust.DevKit.POSSystemAPI.lib;
 using fiskaltrust.DevKit.POSSystemAPI.lib.DTO;
@@ -59,13 +60,63 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                     Amount = totalAmount,
                     Description = "Card"
                 };
-                var payRunner = new ftPosAPIOperationRunner();
-                (PayResponse? pResp, string errorMsg) = await payRunner.Execute<PayResponse>(async () =>
+
+                // For /pay we do NOT use the generic ftPosAPIOperationRunner (as we do for /sign and /issue below):
+                // Instead we send /pay exactly once and - on a communication failure - query the result of the
+                // already started operation via POST /PayResponse using the same operation ID.
+                // See https://docs.fiskaltrust.cloud/apis/pos-system-api for details.
+                Guid payOperationId = Guid.NewGuid();
+                Logger.LogInfo($"Sending payment request using operation ID: {payOperationId}");
+                ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(payRequest, PaymentProtocol.use_auto, null, payOperationId);
+                bool lastCallWasPayResponse = false;
+
+                PayResponse? pResp = null;
+                string errorMsg = string.Empty;
+                while (true)
                 {
- 
-                    return await ftPosAPI.Pay.PaymentAsync(payRequest, PaymentProtocol.use_auto, null, payRunner.OperationID);
-                });
-                
+                    if (payResult.Executed)
+                    {
+                        if (payResult.Operation.IsSuccess)
+                        {
+                            pResp = await payResult.Operation.GetResponseAsAsync();
+                        }
+                        else
+                        {
+                            // Special case: if the last call was /PayResponse and the backend returns 400 BadRequest,
+                            // it means the operation ID is unknown to the backend. The most likely cause is that the
+                            // original /pay request never reached the backend (so no payment was started, no terminal
+                            // was contacted, no charge happened). We deliberately do NOT automatically resend /pay
+                            // here - it is up to the POS integrator to decide how to handle this situation in their
+                            // own POS (e.g. ask the cashier to confirm before retrying).
+                            if (lastCallWasPayResponse && payResult.Operation.Response?.StatusCode == HttpStatusCode.BadRequest)
+                            {
+                                Logger.LogError("/PayResponse returned 400 BadRequest - operation ID is unknown to the backend.");
+                                Logger.LogError("This most likely means the original /pay request never reached the backend, so no payment was started.");
+                                Logger.LogError("It is up to the POS integration to decide whether to resend /pay (with the same or a new operation ID) or abort.");
+                                errorMsg = "/PayResponse returned 400 BadRequest (unknown operation ID).";
+                            }
+                            else
+                            {
+                                errorMsg = payResult.ErrorMessage;
+                            }
+                            ErrorResponse? errResp = await payResult.Operation.GetResponseErrorAsync();
+                            if (errResp != null)
+                            {
+                                Logger.LogError(errResp.ToString());
+                            }
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        Logger.LogError($"Payment request failed: {payResult.ErrorMessage}");
+                        Logger.LogInfo("Querying payment status via /PayResponse after 3s delay...");
+                        await Task.Delay(3000);
+                        payResult = await ftPosAPI.Pay.GetPayResponseAsync(payOperationId);
+                        lastCallWasPayResponse = true;
+                    }
+                }
+
                 if (pResp == null)
                 {
                     Logger.LogError("Payment failed: " + errorMsg + ". Aborting further processing.");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using fiskaltrust.DevKit.POSSystemAPI.lib;
 using fiskaltrust.DevKit.POSSystemAPI.lib.DTO;
@@ -11,7 +12,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
     {
         static async Task Main(string[] args)
         {
-            var result = await Utils.InitFtPosSystemAPIClient ();
+            var result = await Utils.InitFtPosSystemAPIClient (httpTimeoutSeconds: 25);
             if (!result.success)
             {
                 Console.WriteLine(result.errorMsg);
@@ -44,32 +45,35 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                 
                 Logger.LogInfo($"Executing a simple payment of {amount} EUR via card...");
 
-                // IMPORTANT: We do provide the operationID here to be able to retry the operation in case of failure
-                // 
-                //   Note: The backend will check the operationID and the payload of the request.
-                //         And if it is identical to a previous request it will return the result of that previous request instead of executing a new payment request.
+                // IMPORTANT: We do provide the operationID here so we can query the status of this payment operation later
+                //            via POST /PayResponse in case the initial /pay request fails due to communication issues.
+                //
+                //   Note: The backend identifies a payment operation by its operationID. POST /PayResponse with the same
+                //         operationID returns the result of the original /pay operation - it does NOT trigger a new
+                //         payment at the terminal. This is the recommended pattern to recover from communication
+                //         failures.
+                //         See https://docs.fiskaltrust.cloud/apis/pos-system-api for details.
                 Guid operationId = Guid.NewGuid();
+                var payItemRequest = new PayItemRequest
+                {
+                    Description = "Card",
+                    Amount = amount,
+                };
+
+                // Initial /pay request:
+                // - with the defined amount
+                // - allow the target device to select the payment protocol (= use_auto; see payment config in target device / InStore App)
+                // - the terminal ID is not defined here (null) so the request will be processed by all available terminals for the cashbox
+                //     IMPORTANT: In a real setup you might want to define a specific terminal ID here to target a specific payment terminal device; especially when multiple payment terminals are registered for the same cashbox!
+                // - we provide the operation ID so we can query the result later via /PayResponse
+                Logger.LogInfo($"Sending payment request using operation ID: {operationId}");
+                ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(payItemRequest, fiskaltrust.Payment.DTO.PaymentProtocol.use_auto, null, operationId);
+                bool lastCallWasPayResponse = false;
 
                 // In a real setup you might want to use a cancellation token or something similar to not endless retry.
-                // We send the request until it either succeeds or we get a negative response from the backend. (= we retry if we do not get a response for whatever reason)
-                //
-                // IMPORTANT: To simplify the retry logic please check out HOWTO_08_pay_sign_issue and the ftPosAPIOperationRunner class there.
+                // We poll the backend until we either get a definitive response or the user aborts.
                 while (true)
                 {
-                    Logger.LogInfo($"Sending payment request using operation ID: {operationId}");
-                    // execute the payment
-                    // - with with defined amount
-                    // - allow the target device to select the payment protocol (= use_auto; see payment config in target device / InStore App)
-                    // - the terminal ID is not defined here (null) so the request will be processed by all available terminals for the cashbox
-                    //     IMPORTANT: In a real setup you might want to define a specific terminal ID here to target a specific payment terminal device; especially when multiple payment terminals are registered for the same cashbox!
-                    // - we provide the operation ID to be able to retry in case of failure
-                    var payItemRequest = new PayItemRequest
-                    {
-                        Description = "Card",
-                        Amount = amount,
-                    };
-                    ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(payItemRequest, fiskaltrust.Payment.DTO.PaymentProtocol.use_auto, null, operationId);
-
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // Check Result
 
@@ -86,8 +90,24 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                         }
                         else
                         {
-                            // NO --> we received a response but it was a negative one --> do not retry, inform user (and the user might decide to retry manually)
-                            Logger.LogInfo("Payment status request failed: " + payResult.ErrorMessage);
+                            // NO --> we received a response but it was a negative one.
+                            //
+                            // Special case: if the last call was /PayResponse and the backend returns 400 BadRequest,
+                            // it means the operation ID is unknown to the backend. The most likely cause is that the
+                            // original /pay request never reached the backend (so no payment was started, no terminal
+                            // was contacted, no charge happened). We deliberately do NOT automatically resend /pay
+                            // here - it is up to the POS integrator to decide how to handle this situation in their
+                            // own POS (e.g. ask the cashier to confirm before retrying).
+                            if (lastCallWasPayResponse && payResult.Operation.Response?.StatusCode == HttpStatusCode.BadRequest)
+                            {
+                                Logger.LogError("/PayResponse returned 400 BadRequest - operation ID is unknown to the backend.");
+                                Logger.LogError("This most likely means the original /pay request never reached the backend, so no payment was started.");
+                                Logger.LogError("It is up to the POS integration to decide whether to resend /pay (with the same or a new operation ID) or abort.");
+                            }
+                            else
+                            {
+                                Logger.LogInfo("Payment status request failed: " + payResult.ErrorMessage);
+                            }
                             ErrorResponse? errResp = await payResult.Operation.GetResponseErrorAsync();
                             if (errResp != null)
                             {
@@ -102,10 +122,12 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                     }
                     else
                     {
-                        // NO --> communication issue with backend service --> retry
+                        // NO --> communication issue with backend service. Lets query the result of the already started operation via POST /PayResponse using the same operation ID.
                         Logger.LogError($"Payment request failed: {payResult.ErrorMessage}");
-                        Logger.LogInfo("Retrying payment request after 3s delay...");
+                        Logger.LogInfo("Querying payment status via /PayResponse after 3s delay...");
                         await Task.Delay(3000);
+                        payResult = await ftPosAPI.Pay.GetPayResponseAsync(operationId);
+                        lastCallWasPayResponse = true;
                         continue;
                     }
                 }

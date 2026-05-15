@@ -20,6 +20,11 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
             {
                 Logger.LogInfo("fiskaltrust POS System API initialized successfully.");
 
+                Console.WriteLine("Please enter cbTerminalID to use (press ENTER for default 'term1'):");
+                string cbTerminalIDInput = Console.ReadLine() ?? string.Empty;
+                string cbTerminalID = string.IsNullOrWhiteSpace(cbTerminalIDInput) ? "term1" : cbTerminalIDInput.Trim();
+                Logger.LogInfo($"Using cbTerminalID: {cbTerminalID}");
+
                 /////////////////////////////////////////////////////////////////////////////////////////////////
                 // execute a simple payment
                 Console.WriteLine("\n--- Simple Payment Example ---\n");
@@ -60,7 +65,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                     // execute the payment
                     // - with with defined amount
                     // - allow the target device to select the payment protocol (= use_auto; see payment config in target device / InStore App)
-                    // - the terminal ID is not defined here (null) so the request will be processed by all available terminals for the cashbox
+                    // - the terminal ID is defined here ("term1") so the request will be processed by the specified terminal (if the terminal is configured also with a terminal ID)
                     //     IMPORTANT: In a real setup you might want to define a specific terminal ID here to target a specific payment terminal device; especially when multiple payment terminals are registered for the same cashbox!
                     // - we provide the operation ID to be able to retry in case of failure
                     var payItemRequest = new PayItemRequest
@@ -68,7 +73,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.Payment.GettingStarted
                         Description = "Card",
                         Amount = amount,
                     };
-                    ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(payItemRequest, fiskaltrust.Payment.DTO.PaymentProtocol.use_auto, null, operationId);
+                    ExecutedResult<PayResponse> payResult = await ftPosAPI.Pay.PaymentAsync(payItemRequest, fiskaltrust.Payment.DTO.PaymentProtocol.use_auto, cbTerminalID, operationId);
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // Check Result

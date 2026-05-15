@@ -50,7 +50,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib
                 Action = PayAction.payment,
                 Protocol = this._protocol,
                 cbPayItem = this._payItem,
-                cbTerminalId = this._terminalID,
+                cbTerminalID = this._terminalID,
             };
             var rBuilder = new APIRequestBuilder<PaymentRequest, PayResponse>()
                 .SetMethod(HttpMethod.Post)

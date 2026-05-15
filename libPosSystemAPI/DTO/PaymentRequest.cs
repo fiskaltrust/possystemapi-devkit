@@ -19,11 +19,14 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
         [JsonIgnore(Condition = JsonIgnoreCondition.Never)] // required so even if it has default value it must be included
         public required PayItemRequest cbPayItem { get; set; }
 
-        public string? cbTerminalId { get; set; }
+        /// <summary>
+        /// Allows to identify a specific target device/terminal or group that should process the request.
+        /// </summary>
+        public string? cbTerminalID { get; set; }
 
         public JsonContent ToJsonContent()
         {
-            if (string.IsNullOrEmpty(cbTerminalId)) cbTerminalId = null;
+            if (string.IsNullOrEmpty(cbTerminalID)) cbTerminalID = null;
             return JsonContent.Create(this, options: JsonConfiguration.DefaultOptions);
         }
     }

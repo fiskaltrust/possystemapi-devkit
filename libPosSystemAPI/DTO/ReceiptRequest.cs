@@ -85,6 +85,9 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib.DTO
             return JsonContent.Create(this, options: JsonConfiguration.DefaultOptions);
         }
 
+        /// <summary>
+        /// Allows to identify a specific target device/terminal or group that should process the request.
+        /// </summary>
         [JsonPropertyName("cbTerminalID")]
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? cbTerminalID { get; set; }

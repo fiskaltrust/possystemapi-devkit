@@ -154,7 +154,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                                 if (isDelivered)
                                 {
                                     Logger.LogInfo("Receipt has been delivered successfully.");
-                                    Logger.LogDebug($"Delivery details - {deliveryDateils.state}: {deliveryDateils.message}");
+                                    Logger.LogDebug($"Delivery details - {deliveryDateils?.Message}");
                                 }
                                 else
                                 {

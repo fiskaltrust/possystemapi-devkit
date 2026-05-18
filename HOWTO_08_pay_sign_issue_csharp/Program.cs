@@ -23,6 +23,11 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
             {
                 Logger.LogInfo("fiskaltrust POS System API initialized successfully.");
 
+                Console.WriteLine("Please enter cbTerminalID to use (press ENTER for default 'term1'):");
+                string cbTerminalIDInput = Console.ReadLine() ?? string.Empty;
+                string cbTerminalID = string.IsNullOrWhiteSpace(cbTerminalIDInput) ? "term1" : cbTerminalIDInput.Trim();
+                Logger.LogInfo($"Using cbTerminalID: {cbTerminalID}");
+
                 ///////////////////////////////////////////////////////////////////////////////////////////////////////
                 /// Create the "dummy" charge items                
                 List<ChargeItem> chargeItems = new List<ChargeItem>()
@@ -63,7 +68,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                 (PayResponse? pResp, string errorMsg) = await payRunner.Execute<PayResponse>(async () =>
                 {
  
-                    return await ftPosAPI.Pay.PaymentAsync(payRequest, PaymentProtocol.use_auto, null, payRunner.OperationID);
+                    return await ftPosAPI.Pay.PaymentAsync(payRequest, PaymentProtocol.use_auto, cbTerminalID, payRunner.OperationID);
                 });
                 
                 if (pResp == null)
@@ -89,6 +94,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                         .SetCountry("AT") // Austria
                         .SetReceiptCase(ReceiptCase.PointOfSaleReceipt0x0001);
                     ReceiptRequest receiptRequest = new ReceiptRequest(receiptReference, receiptCaseBuilder, chargeItems, pResp.ftPayItems);
+                    receiptRequest.cbTerminalID = cbTerminalID;
                     receiptRequest.ftReceiptCaseData = new FtReceiptCaseData
                     {
                         cbReceiptLines = new string[]
@@ -154,7 +160,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.Howto.PaySignIssue
                                 if (isDelivered)
                                 {
                                     Logger.LogInfo("Receipt has been delivered successfully.");
-                                    Logger.LogDebug($"Delivery details - {deliveryDateils.state}: {deliveryDateils.message}");
+                                    Logger.LogDebug($"Delivery details - {deliveryDateils?.Message}");
                                 }
                                 else
                                 {

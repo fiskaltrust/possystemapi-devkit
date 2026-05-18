@@ -23,7 +23,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib
         /// See https://docs.fiskaltrust.cloud/apis/pos-system-api about the meaning of the operation / operationID
         /// </param>
         /// <returns></returns>
-        public async Task<ExecutedResult<PayResponse>> PaymentAsync(PayItemRequest cbPayItem, PaymentProtocol protocol = PaymentProtocol.use_auto, string? terminalID = null, Guid? operationId = null)
+        public async Task<ExecutedResult<PayResponse>> PaymentAsync(PayItemRequest cbPayItem, PaymentProtocol protocol = PaymentProtocol.use_auto, string? terminalID = "term1", Guid? operationId = null)
         {
             // https://docs.fiskaltrust.cloud/apis/pos-system-api#tag/SynchronAPI/paths/~1pay/post
 
@@ -32,7 +32,7 @@ namespace fiskaltrust.DevKit.POSSystemAPI.lib
                 Action = PayAction.payment,
                 Protocol = protocol,
                 cbPayItem = cbPayItem,
-                cbTerminalId = terminalID,
+                cbTerminalID = terminalID,
             };            
             var rBuilder = new APIRequestBuilder<PaymentRequest, PayResponse>()
                 .SetMethod(HttpMethod.Post)
